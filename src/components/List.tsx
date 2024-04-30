@@ -1,16 +1,23 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
 import Detail from "./Detail";
-import { Link } from "react-router-dom";
 import { Pet } from "../interfaces/pets.interface";
+import { useFetchPets } from "../hooks/useFetchPets";
+import { Button, CircularProgress } from "@mui/material";
+import "./List.css";
+import { Link } from "react-router-dom";
 
 function List() {
-  const pets = useSelector((state: RootState) => state.pets);
+  const { pets, isLoading } = useFetchPets();
 
   return (
     <>
       <h1>Pet's List</h1>
-      <Link to="/register">Register a new Pet</Link>
+      <Button component={Link} to="/register" variant="contained">
+        Register a new Pet
+      </Button>
+
+      <div className="loader-container">
+        {isLoading && <CircularProgress></CircularProgress>}
+      </div>
       <div>
         {pets.map((pet: Pet) => (
           <Detail
