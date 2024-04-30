@@ -1,6 +1,5 @@
 import {
   FormControl,
-  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -10,11 +9,12 @@ import {
   RadioGroup,
   Radio,
   Button,
+  TextField,
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, createPet } from "../store";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Create() {
   const [name, setName] = useState("");
@@ -40,12 +40,21 @@ function Create() {
   };
   return (
     <>
-      <h2>Register your pet</h2>
+      <h1>Register your pet</h1>
+      <Button
+        style={{ marginBottom: "10px" }}
+        component={Link}
+        to="/"
+        variant="outlined"
+      >
+        Home Page
+      </Button>
       <FormGroup>
         <div>
           <FormControl>
             <InputLabel htmlFor="petName">Pet's Name</InputLabel>
-            <Input
+            <TextField
+              variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
               id="petName"
@@ -88,14 +97,19 @@ function Create() {
         <div>
           <FormControl>
             <InputLabel htmlFor="petImg">Pet's Image</InputLabel>
-            <Input
+            <TextField
+              variant="outlined"
               value={imgUrl}
               onChange={(e) => setImgUrl(e.target.value)}
               id="petImg"
             />
           </FormControl>
         </div>
-        <Button onClick={handleSubmit} variant="contained">
+        <Button
+          style={{ width: "250px", marginTop: "10px" }}
+          onClick={handleSubmit}
+          variant="contained"
+        >
           Register
         </Button>
       </FormGroup>
