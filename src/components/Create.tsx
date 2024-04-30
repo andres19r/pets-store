@@ -10,6 +10,7 @@ import {
   Radio,
   Button,
   TextField,
+  Divider,
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,11 +50,12 @@ function Create() {
       >
         Home Page
       </Button>
-      <FormGroup>
+      <Divider />
+      <FormGroup style={{ marginTop: "10px" }}>
         <div>
           <FormControl>
-            <InputLabel htmlFor="petName">Pet's Name</InputLabel>
             <TextField
+              label="Pet's Name"
               variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -64,7 +66,7 @@ function Create() {
 
         <div>
           <FormControl sx={{ m: 1, minWidth: 220 }}>
-            <InputLabel id="petType">Tipo Mascota</InputLabel>
+            <InputLabel id="petType">Pet's Type</InputLabel>
             <Select label="Tipo Mascota" value={type}>
               <MenuItem onClick={() => setType("Perro")} value="Perro">
                 Perro
@@ -96,9 +98,9 @@ function Create() {
 
         <div>
           <FormControl>
-            <InputLabel htmlFor="petImg">Pet's Image</InputLabel>
             <TextField
               variant="outlined"
+              label="Image URL"
               value={imgUrl}
               onChange={(e) => setImgUrl(e.target.value)}
               id="petImg"
