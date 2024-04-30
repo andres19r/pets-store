@@ -1,5 +1,7 @@
+import Create from "./components/Create";
+
 function App() {
-  return <div></div>;
+  return <Create />;
 }
 
 export default App;
