@@ -14,13 +14,21 @@ export const petsSlice = createSlice({
   ],
   reducers: {
     createPet: (state, action) => {
-      console.log(state, action);
+      state.push(action.payload);
     },
     updatePet: (state, action) => {
-      console.log(state, action);
+      const { id, name, type, sex, imgUrl } = action.payload;
+      const updatedPet = state.find((pet) => pet.id === Number(id));
+      if (updatedPet) {
+        updatedPet.name = name;
+        updatedPet.type = type;
+        updatedPet.sex = sex;
+        updatedPet.imgUrl = imgUrl;
+      }
     },
     removePet: (state, action) => {
-      console.log(state, action);
+      const { id } = action.payload;
+      return state.filter((pet) => pet.id !== Number(id));
     },
   },
 });
