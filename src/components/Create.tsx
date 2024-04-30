@@ -9,14 +9,35 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
+  Button,
 } from "@mui/material";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, createPet } from "../store";
+import { useNavigate } from "react-router-dom";
 
 function Create() {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [sex, setSex] = useState("");
-  const [img, setImg] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
+
+  const pets = useSelector((state: RootState) => state.pets);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    dispatch(
+      createPet({
+        id: pets[pets.length - 1].id + 1,
+        name,
+        type,
+        sex,
+        imgUrl,
+      })
+    );
+    navigate("/");
+  };
   return (
     <>
       <h2>Register your pet</h2>
@@ -36,8 +57,12 @@ function Create() {
           <FormControl sx={{ m: 1, minWidth: 220 }}>
             <InputLabel id="petType">Tipo Mascota</InputLabel>
             <Select label="Tipo Mascota" value={type}>
-              <MenuItem value="Perro">Perro</MenuItem>
-              <MenuItem value="Gato">Gato</MenuItem>
+              <MenuItem onClick={() => setType("Perro")} value="Perro">
+                Perro
+              </MenuItem>
+              <MenuItem onClick={() => setType("Gato")} value="Gato">
+                Gato
+              </MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -46,11 +71,17 @@ function Create() {
           <FormLabel id="petGender">Gender</FormLabel>
           <RadioGroup defaultValue="female" name="radio-buttons-group">
             <FormControlLabel
+              onClick={() => setSex("female")}
               value="female"
               control={<Radio />}
               label="Female"
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
+            <FormControlLabel
+              onClick={() => setSex("male")}
+              value="male"
+              control={<Radio />}
+              label="Male"
+            />
           </RadioGroup>
         </FormControl>
 
@@ -58,12 +89,15 @@ function Create() {
           <FormControl>
             <InputLabel htmlFor="petImg">Pet's Image</InputLabel>
             <Input
-              value={img}
-              onChange={(e) => setImg(e.target.value)}
+              value={imgUrl}
+              onChange={(e) => setImgUrl(e.target.value)}
               id="petImg"
             />
           </FormControl>
         </div>
+        <Button onClick={handleSubmit} variant="contained">
+          Register
+        </Button>
       </FormGroup>
     </>
   );
