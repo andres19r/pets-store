@@ -31,7 +31,10 @@ const style = {
 function Detail({ name, type, sex, imgUrl }: PetContent) {
   const [open, setOpen] = useState(false);
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      style={{ marginBottom: "10px", background: "#21232a", color: "white" }}
+      sx={{ maxWidth: 345 }}
+    >
       <CardContent>
         <Typography gutterBottom variant="h3" component="div">
           {name}
